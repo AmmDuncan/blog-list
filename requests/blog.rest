@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "Web development 2022",
+  "author": "Ammiel Yawson",
+  "url": "https://blog.ammielyawson.com",
+  "likes": 346
+}
