@@ -1,28 +1,35 @@
 {
   "name": "blog-list",
   "version": "1.0.0",
-  "description": "blog list application",
-  "main": "index.js",
+  "description": "",
+  "main": "app.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=testing jest --verbose --runInBand --forceExit",
-    "start": "cross-env NODE_ENV=production node index.js",
-    "dev": "cross-env NODE_ENV=development nodemon index.js"
+    "dev": "NODE_ENV=development nodemon index.js",
+    "start": "NODE_ENV=production node index.js",
+    "test": "NODE_ENV=test jest --verbose --runInBand --forceExit"
   },
-  "author": "Ammiel Yawson",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmmDuncan/blog-list.git"
+  },
+  "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AmmDuncan/blog-list/issues"
+  },
+  "homepage": "https://github.com/AmmDuncan/blog-list#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
-    "express": "^4.17.2",
-    "express-error-handler": "^1.1.0",
+    "express": "^4.17.3",
+    "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.2.0"
+    "mongoose": "^6.2.7",
+    "supertest": "^6.2.2"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
-    "eslint": "^8.8.0",
-    "jest": "^27.5.0",
-    "supertest": "^6.2.2"
+    "eslint": "^8.11.0",
+    "jest": "^27.5.1"
   }
 }

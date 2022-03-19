@@ -1,29 +1,32 @@
-require("express-error-handler")
-const express = require("express");
-const cors = require("cors")
-const mongoose = require("mongoose");
+require('express-async-errors');
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const mongoose = require('mongoose');
+const config = require('./utils/config');
+const logger = require('./utils/logger');
+const middleware = require('./utils/middleware');
 
-const logger = require("./middleware/logger");
-const notFound = require("./middleware/notFound");
+const usersRouter = require('./controllers/userRouter');
+const blogsRouter = require('./controllers/blogsRouter');
+const loginRouter = require('./controllers/login');
 
-const config = require("./utils/config");
-const {log, error} = require("./utils/logger")
+const mongoUrl = config.MONGODB_URI;
+mongoose.connect(mongoUrl)
+  .then(() => { logger.log('connected to MongoDB'); })
+  .catch((err) => { logger.error('error connection to MongoDB:', err.message); });
 
-const blogRouter = require("./controllers/blogRouter");
+app.use(cors());
+app.use(express.json());
+app.use(middleware.logger);
+app.use(middleware.tokenExtractor);
 
-mongoose.connect(config.MONGODB_URL)
-.then(() => { log("connected to MongoDB") })
-.catch((err) => { error("error connecting to MongoDB", err.message) });
+app.use('/api/users', usersRouter);
+app.use('/api/blogs', middleware.userExtractor, blogsRouter);
+app.use('/login', loginRouter);
 
-const app = express()
+app.use(middleware.notFound);
+app.use(middleware.errorHandler);
 
-app.use(cors);
-app.use(express.json())
-app.use(logger)
 
-app.use('/api/blogs', blogRouter)
-
-app.use(notFound)
-
-module.exports = app
-
+module.exports = app;

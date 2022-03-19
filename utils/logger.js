@@ -1,7 +1,11 @@
-exports.log = (...message) => {
-  console.log(...message);
+require('dotenv').config();
+
+const testing = process.env.NODE_ENV === 'test';
+
+exports.log = (...args) => {
+  if (!testing) console.log(...args);
 };
 
-exports.error = (...error) => {
-  console.error(...error);
+exports.error = (...args) => {
+  if (!testing) console.error(...args);
 };
