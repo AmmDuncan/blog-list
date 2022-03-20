@@ -5,7 +5,9 @@ const config = require('../utils/config');
 const jwt = require('jsonwebtoken');
 
 router.get('/', async (request, response) => {
-  const blogs = await Blog.find({}).populate('user', { username: 1, id: 1 });
+  const blogs = await Blog
+    .find({})
+    .populate('user', { username: 1, name: 1, id: 1 });
   response.status(200).json({ data: blogs });
 });
 
